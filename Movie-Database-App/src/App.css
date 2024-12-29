@@ -1,42 +1,94 @@
-#root {
-  max-width: 1280px;
+/* App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+.App {
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h1 {
+  font-size: 36px;
+  color: #333;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+section {
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.add-movie form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.card {
-  padding: 2em;
+.add-movie input,
+.add-movie textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.read-the-docs {
-  color: #888;
+.add-movie button {
+  padding: 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-movie button:hover {
+  background-color: #45a049;
+}
+
+.movie-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.movie-list li {
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.movie-list h3 {
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.movie-list p {
+  margin: 5px 0;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #777;
+}
+
+footer p {
+  font-size: 14px;
 }
