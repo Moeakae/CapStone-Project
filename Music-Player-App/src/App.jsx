@@ -1,35 +1,95 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import PlayList from "./components/PlayerList";
+import VolumeControl from "./components/VolumeContral";
+import SongInfo from "./components/SongInfo";
+import Controls from "./components/Controls";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef(null);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleNext = () => {
+    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    setIsPlaying(false);
+  };
+
+  const handlePrevious = () => {
+    setCurrentSongIndex((prevIndex) =>
+      prevIndex === 0 ? songs.length - 1 : prevIndex - 1
+    );
+    setIsPlaying(false);
+  };
+
+  const handleShuffle = () => {
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    setCurrentSongIndex(randomIndex);
+    setIsPlaying(false);
+  };
+
+  const handleVolumeChange = (value) => {
+    setVolume(value);
+    audioRef.current.volume = value;
+  };
+
+  const handleTimeUpdate = () => {
+    setCurrentTime(audioRef.current.currentTime);
+    setDuration(audioRef.current.duration);
+  };
+
+  const handleSeek = (time) => {
+    audioRef.current.currentTime = time;
+    setCurrentTime(time);
+  };
+
+  const handleSongSelect = (index) => {
+    setCurrentSongIndex(index);
+    setIsPlaying(false);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+        <SongInfo song={songs[currentSongIndex]} />
+        <audio
+          ref={audioRef}
+          src={songs[currentSongIndex].src}
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleNext}
+        ></audio>
+        <Controls
+          isPlaying={isPlaying}
+          onPlayPause={handlePlayPause}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
+          onShuffle={handleShuffle}
+        />
+        <ProgressBar
+          currentTime={currentTime}
+          duration={duration}
+          onSeek={handleSeek}
+        />
+        <VolumeControl volume={volume} onVolumeChange={handleVolumeChange} />
+        <PlayList
+          songs={songs}
+          currentSongIndex={currentSongIndex}
+          onSongSelect={handleSongSelect}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
