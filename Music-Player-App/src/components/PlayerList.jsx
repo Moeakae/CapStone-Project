@@ -1,8 +1,11 @@
 import React from "react";
+import { Typography } from "@mui/material";
 
 function Playlist({ songs, currentSongIndex, onSongSelect }) {
     return (
       <div className="playlist mt-6">
+        <Typography variant="h6">{title}</Typography>
+        <Typography variant="Subtitle1" color="textSecondary">{artist}</Typography>
         <h3 className="text-xl font-semibold mb-4">Playlist</h3>
         <ul className="space-y-2">
           {songs.map((song, index) => (

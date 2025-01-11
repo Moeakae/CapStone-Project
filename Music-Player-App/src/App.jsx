@@ -60,6 +60,7 @@ function App() {
   };
 
   return (
+    <Box sx={{ p: 3, maxwidth: "400px", margin: "auto", textAlign: "center" }}>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
         <SongInfo song={songs[currentSongIndex]} />
@@ -89,6 +90,7 @@ function App() {
         />
       </div>
     </div>
+    </Box>
   );
 }
 
