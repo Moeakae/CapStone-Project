@@ -3,6 +3,7 @@ import VolumeControl from "./components/VolumeContral";
 import SongInfo from "./components/SongInfo";
 import Controls from "./components/Controls";
 import ProgressBar from "./components/ProgressBar";
+import axios from "axios";
 
 function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
