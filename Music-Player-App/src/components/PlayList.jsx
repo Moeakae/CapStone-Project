@@ -1,6 +1,6 @@
 import React from "react";
 
-const Playlist = ({ playlist, currentSong, selectSong }) => (
+const PlayList = ({ playlist, currentSong, selectSong }) => (
   <div className="mt-4">
     <h3 className="text-lg font-semibold">Playlist</h3>
     <ul className="mt-2 space-y-2">
@@ -17,4 +17,4 @@ const Playlist = ({ playlist, currentSong, selectSong }) => (
   </div>
 );
 
-export default Playlist;
+export default PlayList;
