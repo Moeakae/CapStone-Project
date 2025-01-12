@@ -1,25 +1,20 @@
+import React from "react";
+
+const VolumeControl = ({ volume, setVolume }) => (
+  <div className="mt-4">
+    <label htmlFor="volume" className="block text-sm text-gray-400">Volume</label>
+    <input
+      type="range"
+      id="volume"
+      min="0"
+      max="100"
+      value={volume}
+      onChange={(e) => setVolume(e.target.value)}
+      className="w-full mt-1"
+    />
+  </div>
+);
+
+export default VolumeControl;
 
 
-import React, { useState, useEffect} from "react";
-
-function VolumeControl({ volume, onVolumeChange }) {
-    return (
-      <div className="volume-control flex items-center justify-center mt-4">
-        <label htmlFor="volume" className="text-gray-400 mr-2">
-          Volume:
-        </label>
-        <input
-          id="volume"
-          type="range"
-          min="0"
-          max="1"
-          step="0.01"
-          value={volume}
-          onChange={(e) => onVolumeChange(e.target.value)}
-          className="w-2/3"
-        />
-      </div>
-    );
-  }
-  
-export default VolumeControl  
