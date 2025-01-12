@@ -1,4 +1,4 @@
-import PlayList from "./components/PlayerList";
+import PlayerList from "./components/PlayerList";
 import VolumeControl from "./components/VolumeContral";
 import SongInfo from "./components/SongInfo";
 import Controls from "./components/Controls";
@@ -84,7 +84,7 @@ function App() {
           onSeek={handleSeek}
         />
         <VolumeControl volume={volume} onVolumeChange={handleVolumeChange} />
-        <PlayList
+        <PlayerList
           songs={songs}
           currentSongIndex={currentSongIndex}
           onSongSelect={handleSongSelect}
