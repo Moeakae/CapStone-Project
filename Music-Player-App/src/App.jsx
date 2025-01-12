@@ -6,12 +6,21 @@ import ProgressBar from "./components/ProgressBar";
 import axios from "axios";
 
 function App() {
+  const playerName = process.env.REACT_APP_MUSIC_PLAYER_NAME || 'My Music Player';
+  const theme = process.env.REACT_APP_PLAYER_THEME || 'Light';
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
+
+  const shuffleEnabled = process.env.REACT_APP_SHUFFLE_ENABLED === 'true';
+
+if (shuffleEnabled) {
+  console.log('Shuffle is enabled!');
+}
+
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -61,8 +70,10 @@ function App() {
   };
 
   return (
+    
     <Box sx={{ p: 3, maxwidth: "400px", margin: "auto", textAlign: "center" }}>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+      <h1>Welcome to {playerName}</h1>
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
         <SongInfo song={songs[currentSongIndex]} />
         <audio
@@ -70,6 +81,7 @@ function App() {
           src={songs[currentSongIndex].src}
           onTimeUpdate={handleTimeUpdate}
           onEnded={handleNext}
+          className={'app theme-${theme}'}
         ></audio>
         <Controls
           isPlaying={isPlaying}

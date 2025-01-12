@@ -7,5 +7,10 @@ export const fetchData = async (endpoint) => {
     } catch ( error ) { 
         console.error("Error fetching data:", error);
         throw error;
+        const API_URL = process.env.REACT_APP_API_URL;
+
+ 
+
+
     }
 }

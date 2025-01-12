@@ -22,7 +22,28 @@ function PlayerList({ songs, currentSongIndex, onSongSelect }) {
             </li>
           ))}
         </ul>
+        const defaultVolume = parseFloat(process.env.REACT_APP_DEFAULT_VOLUME || 0.5);
+        const [volume, setVolume] = useState(defaultVolume);
+
+  const handleVolumeChange = (e) = {
+    setVolume(e.target.value)
+  };
+
+  
+    <div className="music-player">
+      <h2>Music Player</h2>
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value={volume}
+        onChange={handleVolumeChange}
+        aria-label="Volume"
+        />
+        <p>Volume: {Math.round(volume * 100)}%</p>
       </div>
+    </div>
     );
   }
   export default PlayerList;
