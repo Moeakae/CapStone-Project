@@ -1,110 +1,47 @@
-import PlayerList from "./components/PlayerList";
-import VolumeControl from "./components/VolumeContral";
+import React, { useState } from "react";
 import SongInfo from "./components/SongInfo";
-import Controls from "./components/Controls";
 import ProgressBar from "./components/ProgressBar";
-import axios from "axios";
+import PlayerControls from "./components/PlayerControls";
+import VolumeControl from "./components/VolumeControl";
+import PlayList from "./components/PlayList";
 
-function App() {
-  const playerName = process.env.REACT_APP_MUSIC_PLAYER_NAME || 'My Music Player';
-  const theme = process.env.REACT_APP_PLAYER_THEME || 'Light';
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.5);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const audioRef = useRef(null);
+  const [currentSong, setCurrentSong] = useState(0);
+  const [volume, setVolume] = useState(50);
+  const [isRepeat, setIsRepeat] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const playlist = [
+    { title: "Song One", artist: "Artist One", cover: "https://via.placeholder.com/300" },
+    { title: "Song Two", artist: "Artist Two", cover: "https://via.placeholder.com/300" },
+    { title: "Song Three", artist: "Artist Three", cover: "https://via.placeholder.com/300" },
+  ];
 
-  const shuffleEnabled = process.env.REACT_APP_SHUFFLE_ENABLED === 'true';
-
-if (shuffleEnabled) {
-  console.log('Shuffle is enabled!');
-}
-
-
-  const handlePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleNext = () => {
-    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
-    setIsPlaying(false);
-  };
-
-  const handlePrevious = () => {
-    setCurrentSongIndex((prevIndex) =>
-      prevIndex === 0 ? songs.length - 1 : prevIndex - 1
-    );
-    setIsPlaying(false);
-  };
-
-  const handleShuffle = () => {
-    const randomIndex = Math.floor(Math.random() * songs.length);
-    setCurrentSongIndex(randomIndex);
-    setIsPlaying(false);
-  };
-
-  const handleVolumeChange = (value) => {
-    setVolume(value);
-    audioRef.current.volume = value;
-  };
-
-  const handleTimeUpdate = () => {
-    setCurrentTime(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration);
-  };
-
-  const handleSeek = (time) => {
-    audioRef.current.currentTime = time;
-    setCurrentTime(time);
-  };
-
-  const handleSongSelect = (index) => {
-    setCurrentSongIndex(index);
-    setIsPlaying(false);
-  };
+  const togglePlay = () => setIsPlaying(!isPlaying);
+  const toggleRepeat = () => setIsRepeat(!isRepeat);
+  const toggleShuffle = () => setIsShuffle(!isShuffle);
+  const nextSong = () => setCurrentSong((prev) => (isShuffle ? Math.floor(Math.random() * playlist.length) : (prev + 1) % playlist.length));
+  const prevSong = () => setCurrentSong((prev) => (prev - 1 + playlist.length) % playlist.length);
+  const selectSong = (index) => setCurrentSong(index);
 
   return (
-    
-    <Box sx={{ p: 3, maxwidth: "400px", margin: "auto", textAlign: "center" }}>
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
-      <h1>Welcome to {playerName}</h1>
-      <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
-        <SongInfo song={songs[currentSongIndex]} />
-        <audio
-          ref={audioRef}
-          src={songs[currentSongIndex].src}
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={handleNext}
-          className={'app theme-${theme}'}
-        ></audio>
-        <Controls
-          isPlaying={isPlaying}
-          onPlayPause={handlePlayPause}
-          onNext={handleNext}
-          onPrevious={handlePrevious}
-          onShuffle={handleShuffle}
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-900 text-white">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-sm">
+        <SongInfo song={playlist[currentSong]} isPlaying={isPlaying} togglePlay={togglePlay} />
+        <ProgressBar progress={50} onSeek={(progress) => console.log(progress)} />
+        <PlayerControls
+          toggleRepeat={toggleRepeat}
+          toggleShuffle={toggleShuffle}
+          prevSong={prevSong}
+          nextSong={nextSong}
+          isRepeat={isRepeat}
+          isShuffle={isShuffle}
         />
-        <ProgressBar
-          currentTime={currentTime}
-          duration={duration}
-          onSeek={handleSeek}
-        />
-        <VolumeControl volume={volume} onVolumeChange={handleVolumeChange} />
-        <PlayerList
-          songs={songs}
-          currentSongIndex={currentSongIndex}
-          onSongSelect={handleSongSelect}
-        />
+        <VolumeControl volume={volume} setVolume={setVolume} />
+        <PlayList playlist={playlist} currentSong={currentSong} selectSong={selectSong} />
       </div>
     </div>
-    </Box>
   );
-}
+};
 
 export default App;
