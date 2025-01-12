@@ -17,11 +17,34 @@ const App = () => {
     { title: "Song Three", artist: "Artist Three", cover: "https://via.placeholder.com/300" },
   ];
 
-  const togglePlay = () => setIsPlaying(!isPlaying);
+  
   const toggleRepeat = () => setIsRepeat(!isRepeat);
   const toggleShuffle = () => setIsShuffle(!isShuffle);
   const nextSong = () => setCurrentSong((prev) => (isShuffle ? Math.floor(Math.random() * playlist.length) : (prev + 1) % playlist.length));
   const prevSong = () => setCurrentSong((prev) => (prev - 1 + playlist.length) % playlist.length);
+  
+
+  const musicApiUrl = import.meta.env.VITR_MUSIC_URL;
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      try {
+        const response = await fetch(`${musicApiUrl}/playlist`);
+        if (!response.ok) throw new Error("Failed to fetch playlist");
+        const data = await response.json();
+        setPlaylist(data.songs || []);
+      } catch (error) {
+        console.error("Error fetching playlist:", error);
+        setPlaylist([
+          { title: "Fallback Song 1", artist: "Artist One", cover: "https://via.placeholder.com/300" },
+          { title: "Fallback Song 2", artist: "Artist Two", cover: "https://via.placeholder.com/300" },
+        ]);
+      }
+    };
+
+    fetchPlaylist();
+  }, [musicApiUrl]);
+
+  const togglePlay = () => setIsPlaying(!isPlaying);
   const selectSong = (index) => setCurrentSong(index);
 
   return (
