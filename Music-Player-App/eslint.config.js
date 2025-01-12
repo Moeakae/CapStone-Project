@@ -17,12 +17,16 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: "module",
+  
+
   },
   plugins: ["react", "jsx-a11y"],
   rules: {
     "react/prop-types": 0, // Disable prop-types rule (optional for TypeScript)
     "prettier/prettier": ["error", { endOfLine: "auto" }],
     "jsx-a11y/no-autofocus": 0, // Disable autofocus warning
+    
+
   },
   settings: {
     react: {
