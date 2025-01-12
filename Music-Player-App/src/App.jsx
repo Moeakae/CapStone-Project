@@ -23,6 +23,10 @@ const App = () => {
   const nextSong = () => setCurrentSong((prev) => (isShuffle ? Math.floor(Math.random() * playlist.length) : (prev + 1) % playlist.length));
   const prevSong = () => setCurrentSong((prev) => (prev - 1 + playlist.length) % playlist.length);
   
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const appName = import.meta.env.VITE_APP_NAME;
+  const defaultVolume = import.meta.env.VITE_DEFAULT_VOLUME;
+
 
   const musicApiUrl = import.meta.env.VITR_MUSIC_URL;
   useEffect(() => {
@@ -48,8 +52,11 @@ const App = () => {
   const selectSong = (index) => setCurrentSong(index);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-900 text-white">
+     <div className="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-900 text-white">
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-sm">
+        <h1 className="text-2x1 font-bold">{appName}</h1>
+        <p>API URL: {apiUrl}</p>
+        <p>Default Volume: {defaultVolume}</p>
         <SongInfo song={playlist[currentSong]} isPlaying={isPlaying} togglePlay={togglePlay} />
         <ProgressBar progress={50} onSeek={(progress) => console.log(progress)} />
         <PlayerControls
