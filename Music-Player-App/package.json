@@ -3,7 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://<your-username>.github.io/<your-repo-name>",
+
+
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "jest",
     "dev": "vite",
     "build": "vite build",
