@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography } from "@mui/material";
 
-function Playlist({ songs, currentSongIndex, onSongSelect }) {
+function PlayerList({ songs, currentSongIndex, onSongSelect }) {
     return (
       <div className="playlist mt-6">
         <Typography variant="h6">{title}</Typography>
@@ -25,4 +25,4 @@ function Playlist({ songs, currentSongIndex, onSongSelect }) {
       </div>
     );
   }
-  export default PlayList;
+  export default PlayerList;
