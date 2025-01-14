@@ -70,6 +70,7 @@ const App = () => {
         <VolumeControl volume={volume} setVolume={setVolume} />
         <PlayList playlist={playlist} currentSong={currentSong} selectSong={selectSong} />
       </div>
+      <p>Loading playlist...</p>
     </div>
   );
 };
