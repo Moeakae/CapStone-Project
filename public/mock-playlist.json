@@ -1,0 +1,23 @@
+{
+    "songs": [
+      {
+        "title": "Song One",
+        "artist": "Artist One",
+        "cover": "https://via.placeholder.com/300",
+        "url": "https://example.com/song1.mp3"
+      },
+      {
+        "title": "Song Two",
+        "artist": "Artist Two",
+        "cover": "https://via.placeholder.com/300",
+        "url": "https://example.com/song2.mp3"
+      },
+      {
+        "title": "Song Three",
+        "artist": "Artist Three",
+        "cover": "https://via.placeholder.com/300",
+        "url": "https://example.com/song3.mp3"
+      }
+    ]
+  }
+  
